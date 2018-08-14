@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+- 2.5.1
+before_script:
+- bundle exec rake db:create --all
+- bundle exec rake db:migrate
+script:
+- bundle exec rake ci:tests
+services:
+- postgresql
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: hmvGcVSxrgpUmM9MimGc3s48YGD1Jldrl8mcedZoB3r7QfjSXKHXh5ErDCr91ZWZhy5Bn52E4SIws651wMEWrBTReaAH30amTPCEH4ZwFwi2y4Dl+tgX7mQCPEhm9Gmlr7QH73sSRb+/d9DCih2YoOPTyzS5S8iK+pGNSzpg8ZdyERugpLP5W1TCWi2sn8jpP8/b1AbZR29iBOgjDKsRtu/fd56uMfaviJS8oijGyMFn05YQGz6DKeeJ6TA2/47HYW8G89NwuMCbHXsRAE+okTatJnSl8nM3R5pEdN/jxXpRl72bg0zbd6z01iQ4/tiCJGv0j/n9nTHHj+sjSMw4onG0ZCqlvFqaKtJzvLqEvoDa8aLB+09FAlxKxOedUdgsQbqpVBzjKeNaOs9ZvFesrcC+dufmjv2aAkvlw6agi/0pcs1r7+6Lur23GltyT0rW2ug9tk2AG2NkPh6sr6xhv+MWLsMPsmQm4TVme6xg+MFEZDU4DIWC6NknEAqSAIxv5DdoxxehRoQsVgHZbA1iv74kjC2WiCZDLle+lIXmQnnWeeG2FsAbkY3v9b8d5vwghzn8FVuYP471LosVqQaqmNGKaCD5e5gP9jKLA+Vlf2NthV/Rgs2GgwUHC16Gst939uS3PxnLrOLQPfU6I0WyOXJVMHYXvozDYG/W0BVJZ7c=
+  app:
+    develop: radiant-earth-71206
+    master: whispering-bayou-68204
+  on:
+    repo: satriashp/rails_ci
+  run:
+    - "rails db:migrate"
